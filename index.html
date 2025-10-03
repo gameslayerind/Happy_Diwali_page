@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Diwali | HoneyPIE & SHADOWSHOPI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- #made by @EpicEnchanter -->
+  <style>
+    :root{
+      --gold:#ffd166; --amber:#ffb703; --glow:#ffe8b0; --rose:#ff7fb6;
+      --bg2:#1a0a26; --bgDeep:#0b0816;
+      --neon:#8ef7ff; --neon2:#ff91f6;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:#fff; overflow:hidden;
+      background: radial-gradient(1000px 600px at 80% 10%, var(--bg2), transparent),
+                  radial-gradient(900px 500px at 20% 90%, #14081f, transparent),
+                  linear-gradient(160deg, #090512, #17091e 60%, #10061a);
+      font-family:Poppins,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    }
+
+    /* Camera entrance */
+    .scene{
+      position:relative; min-height:100vh; width:100%;
+      transform-origin:50% 50%;
+      animation: camIn 2.5s ease-out forwards;
+      opacity:0;
+    }
+    @keyframes camIn{
+      0%{ transform:scale(1.08); filter:blur(2px); opacity:0 }
+      60%{ transform:scale(1.02); filter:blur(1px); opacity:.6 }
+      100%{ transform:scale(1); filter:blur(0); opacity:1 }
+    }
+
+    header{text-align:center; padding:42px 16px 6px; opacity:0; animation: fadeIn 2.2s .6s ease forwards}
+    @keyframes fadeIn{ to{opacity:1} }
+    .title{
+      font-family:"Great Vibes",cursive; font-size:clamp(38px,7.5vw,86px);
+      background:linear-gradient(180deg,#fffbe8,var(--gold) 55%,#ff9bd5);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:0 0 24px rgba(255,183,0,.35); margin:0;
+    }
+
+    /* Highlighted name badge */
+    .hi-name{
+      display:inline-block;
+      padding:6px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.28);
+      background: radial-gradient(120% 140% at 10% 10%, rgba(255,255,255,.18), rgba(255,255,255,.04) 60%);
+      color: transparent;
+      background-clip:text; -webkit-background-clip:text;
+      background-image: linear-gradient(180deg, #fffbe8, #ffd166 55%, #ff8bd0);
+      position:relative;
+      text-shadow: 0 0 18px rgba(255,185,80,.25);
+    }
+    .hi-name:after{
+      content:"";
+      position:absolute; left:16px; right:16px; bottom:2px; height:2px; border-radius:2px;
+      background: linear-gradient(90deg, transparent, rgba(255,230,170,.9), transparent);
+      filter: blur(.4px);
+      animation: shineLine 2.6s ease-in-out infinite;
+    }
+    @keyframes shineLine{ 0%,100%{ opacity:.45 } 50%{ opacity:1 } }
+    .hi-name:hover{ text-shadow: 0 0 24px rgba(255,200,120,.35) }
+
+    .to{opacity:.95; margin-top:6px}
+
+    .wrap{max-width:980px; margin:8px auto 28px; padding:0 16px; opacity:0; animation: fadeIn 2s 1s ease forwards}
+    .grid{display:grid; grid-template-columns:1.1fr 1fr; gap:16px}
+    @media (max-width:860px){.grid{grid-template-columns:1fr}}
+
+    .panel{
+      border-radius:18px; padding:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 12px 30px rgba(0,0,0,.35), inset 0 0 24px rgba(255,200,120,.05);
+    }
+    .msg{line-height:1.7}
+
+    /* Background flying lanterns */
+    .lanterns{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+    .lantern{
+      position:absolute; width:16px; height:22px; border-radius:6px 6px 10px 10px;
+      background: radial-gradient(8px 10px at 50% 40%, #fff7dd, #ffcc7a 70%, #ff9a2f 95%);
+      box-shadow: 0 0 14px 6px rgba(255,190,80,.45), 0 0 34px 10px rgba(255,150,40,.22);
+      opacity:.85; transform:translateY(110vh) translateX(0) scale(1);
+      animation: floatLantern linear forwards;
+    }
+    .lantern:after{
+      content:""; position:absolute; bottom:-6px; left:50%; transform:translateX(-50%);
+      width:10px; height:4px; border-radius:999px;
+      background: radial-gradient(circle, rgba(255,200,120,.7), transparent 70%);
+      filter: blur(1px);
+    }
+    @keyframes floatLantern{
+      0%{ transform: translateY(110vh) translateX(0) scale(.8); opacity:0 }
+      8%{ opacity:.9 }
+      100%{ transform: translateY(-20vh) translateX(var(--drift, 40px)) scale(1.1); opacity:0 }
+    }
+
+    /* Edge string lights */
+    .edges{ position:fixed; inset:0; pointer-events:none; z-index:3; }
+    .string{ position:absolute; left:0; width:100%; height:4px; display:flex; justify-content:space-between; padding:0 10px;
+             filter: drop-shadow(0 0 6px rgba(255,200,120,.6)); }
+    .top{ top:0 } .bottom{ bottom:0 }
+    .bulb{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--c, #ffecb3);
+      box-shadow: 0 0 8px 3px var(--c);
+      opacity:.2; animation: twinkle 1.8s var(--d,0s) infinite;
+    }
+    @keyframes twinkle{ 0%,100%{ opacity:.25; transform:translateY(0) } 50%{ opacity:1; transform:translateY(1px) } }
+
+    /* Stage with candles */
+    .stage{
+      position:relative; min-height:320px; display:flex; align-items:center; justify-content:center;
+      border-radius:18px; overflow:hidden; z-index:2;
+      background: radial-gradient(220px 160px at 50% 80%, rgba(255,210,120,.14), transparent 70%),
+                  radial-gradient(460px 300px at 50% 70%, rgba(255,170,120,.08), transparent 75%);
+      border:1px solid rgba(255,255,255,.12);
+      opacity:0; animation: fadeIn 2s 1.2s ease forwards;
+    }
+    .rangoli{
+      position:absolute; inset:auto 0 0; height:200px; opacity:.24; filter:blur(.2px);
+      background:
+        conic-gradient(from 0deg, rgba(255,255,255,.22) 0 10deg, transparent 10deg 20deg) 0 0/40px 40px,
+        radial-gradient(circle, rgba(255,255,255,.18) 2px, transparent 3px) 20px 20px/40px 40px;
+      mask: radial-gradient(closest-side,#000 63%, transparent 64%);
+    }
+
+    /* Candles group */
+    .candles{
+      position:relative; width:320px; height:200px; display:flex; align-items:flex-end; justify-content:center;
+      filter: drop-shadow(0 12px 34px rgba(0,0,0,.5));
+      gap:22px;
+    }
+    .candle{
+      position:relative; width:48px; border-radius:12px; background:#f5e7d8;
+      box-shadow: inset 0 -6px 14px rgba(160,120,90,.35), inset 0 12px 18px rgba(255,255,255,.6);
+    }
+    .c1{ height:150px }
+    .c2{ height:110px }
+    .c3{ height:120px }
+    .wick{ position:absolute; top:-10px; left:50%; width:4px; height:16px; transform:translateX(-50%);
+           background:#1c0c0a; border-radius:2px }
+    .drip{
+      position:absolute; left:10px; top:10px; width:10px; height:28px; border-radius:6px;
+      background: linear-gradient(180deg, #fff6eb, #e8d0b8);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,.6);
+      opacity:.85;
+    }
+    .drip.right{ left:auto; right:8px; height:22px; top:16px }
+    .shine{
+      position:absolute; inset: 0; border-radius:12px;
+      background: linear-gradient(170deg, rgba(255,255,255,.5), rgba(255,255,255,0) 40%);
+      opacity:.35; pointer-events:none;
+    }
+
+    /* Candle flames + glow */
+    .flame{
+      position:absolute; top:-26px; left:50%; width:22px; height:44px;
+      transform-origin: bottom center;
+      border-radius:12px 12px 16px 16px / 24px 24px 18px 18px;
+      background: radial-gradient(12px 28px at 50% 60%, #fff8e9, #ffd166 58%, #ff8a00 86%);
+      box-shadow: 0 0 22px 8px rgba(255,196,0,.55), 0 0 46px 12px rgba(255,140,0,.25);
+      animation: sway 2.8s ease-in-out infinite;
+      opacity:0; transform:translateX(-50%);
+    }
+    .flame:after{
+      content:""; position:absolute; inset:6px; border-radius:50%;
+      background: radial-gradient(circle at 50% 60%, #fffef5, #ffe6a6 60%, transparent 70%);
+      filter: blur(1px); opacity:.95;
+    }
+    .glow{
+      position:absolute; bottom:8px; left:50%; width:280px; height:120px; transform:translateX(-50%);
+      border-radius:50%;
+      background: radial-gradient(closest-side, rgba(255,224,149,.6), transparent 70%);
+      filter: blur(13px); opacity:0; transition:.9s ease;
+    }
+    @keyframes sway{ 0%,100%{ transform:translateX(-50%) rotate(-3deg) } 50%{ transform:translateX(-50%) rotate(3deg) } }
+
+    .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; justify-content:center}
+    button{
+      cursor:pointer; padding:10px 16px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+      color:#fff; font-weight:600; transition:.2s;
+    }
+    .primary{ border-color: rgba(255,209,102,.6) }
+    button:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,.25) }
+
+    /* Dynamic lighting sweeps */
+    .light-sweep{
+      position:fixed; inset:0; pointer-events:none; mix-blend-mode:screen; opacity:.2;
+      background: radial-gradient(600px 300px at var(--lx,50%) var(--ly,60%), rgba(255,220,150,.18), transparent 70%);
+      animation: sweep 6s 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes sweep{
+      0%{ --lx: 20%; --ly: 70%; opacity:.18 }
+      50%{ --lx: 80%; --ly: 30%; opacity:.28 }
+      100%{ --lx: 40%; --ly: 60%; opacity:.18 }
+    }
+
+    /* Fireworks canvas */
+    #fw-canvas{
+      position:fixed; inset:0; z-index:1; pointer-events:none;
+    }
+
+    /* Footer block styling */
+    .footer-note{
+      text-align:center;
+      padding:30px 16px 42px;
+      opacity:0; animation: fadeIn 2s 1.4s ease forwards;
+      line-height:1.6;
+      white-space:pre-line;
+      z-index:4; position:relative;
+    }
+    .footer-note .hi-name{
+      padding:6px 18px;
+      border-color: rgba(255,255,255,.35);
+    }
+    .footer-note:before{
+      content:"";
+      display:block;
+      width:90%;
+      max-width:900px;
+      height:1px;
+      margin:0 auto 16px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      filter: blur(.2px);
+    }
+
+    /* HAPPY DIWALI Popup */
+    .diwali-popup{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      pointer-events:none; z-index:5; opacity:0; transform: scale(0.96);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .diwali-popup.show{ opacity:1; transform: scale(1) }
+    .dp-wrap{
+      padding:18px 26px; border-radius:18px; text-align:center;
+      background: radial-gradient(80% 120% at 50% 40%, rgba(20,10,30,.7), rgba(20,10,30,.35));
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45), inset 0 0 24px rgba(255,210,140,.08);
+      position:relative; overflow:hidden;
+    }
+    .dp-title{
+      margin:0; font-size: clamp(42px, 8vw, 96px);
+      font-family: "Great Vibes", cursive;
+      letter-spacing:.5px; color:#fff;
+      text-shadow: 0 0 14px rgba(255,200,120,.55), 0 0 36px rgba(255,120,60,.35), 0 0 60px rgba(255,80,180,.25);
+    }
+    .dp-sub{
+      margin:2px 0 0; font-size: clamp(12px, 2.5vw, 16px);
+      font-variant: small-caps; letter-spacing:.25em; color:#ffe7ff; opacity:.9;
+    }
+    .dp-wrap:after{
+      content:""; position:absolute; top:-20%; bottom:-20%; width:24%;
+      left:-30%; transform: skewX(-20deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      animation: shimmer 2.6s ease-in-out infinite;
+    }
+    @keyframes shimmer{ 0%{ left:-30% } 100%{ left:110% } }
+    .dp-wrap i{
+      position:absolute; width:6px; height:6px; border-radius:50%; background:#fffbe8;
+      box-shadow: 0 0 10px 4px rgba(255,220,160,.6);
+      opacity:.0; animation: flicker 2.2s infinite ease-in-out;
+    }
+    .dp-wrap i:nth-child(1){ top:10%; left:12%; animation-delay:.2s }
+    .dp-wrap i:nth-child(2){ top:82%; left:18%; animation-delay:.8s }
+    .dp-wrap i:nth-child(3){ top:20%; right:10%; animation-delay:1.4s }
+    .dp-wrap i:nth-child(4){ bottom:12%; right:16%; animation-delay:1.9s }
+    @keyframes flicker{ 0%,100%{ opacity:.0; transform:scale(.6) } 50%{ opacity:1; transform:scale(1) } }
+
+    /* Reply Dialog (glass blur + neon link) */
+    .overlay{
+      position:fixed; inset:0; background: rgba(8,4,16,.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index:6; display:none; align-items:center; justify-content:center;
+    }
+    .overlay.show{ display:flex }
+    .dialog{
+      width:min(92vw, 520px); border-radius:16px; padding:18px 18px 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow: 0 18px 60px rgba(0,0,0,.5), inset 0 0 24px rgba(255,210,140,.06);
+      text-align:center; position:relative; overflow:hidden;
+      animation: pop .35s ease;
+    }
+    @keyframes pop{ from{ transform:scale(.96); opacity:0 } to{ transform:scale(1); opacity:1 } }
+    .dialog h4{
+      margin:0 0 10px; font-weight:600; color:#ffe;
+      letter-spacing:.02em;
+    }
+    .dialog p{ margin:0 0 16px; color:#ffeefd; opacity:.95 }
+    .neon-link{
+      display:inline-block; padding:10px 16px; border-radius:999px; text-decoration:none;
+      color:#041018; font-weight:700; letter-spacing:.02em;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      box-shadow: 0 0 14px var(--neon), 0 0 24px var(--neon2), inset 0 0 10px rgba(255,255,255,.6);
+      position:relative;
+    }
+    .neon-link:after{
+      content:""; position:absolute; inset: -2px; border-radius:999px; pointer-events:none;
+      border:2px solid rgba(255,255,255,.35);
+      filter: blur(.4px);
+    }
+    .close-btn{
+      position:absolute; top:8px; right:8px; border:none; background:transparent; color:#fff; cursor:pointer;
+      padding:6px 10px; border-radius:8px; font-weight:700;
+      opacity:.8;
+    }
+    .close-btn:hover{ opacity:1; background: rgba(255,255,255,.08) }
+
+    /* #made by @EpicEnchanter */
+  </style>
+</head>
+<body>
+  <!-- Background flying lanterns -->
+  <div class="lanterns" id="lanterns"></div>
+
+  <!-- Edge string lights -->
+  <div class="edges" id="edges">
+    <div class="string top"></div>
+    <div class="string bottom"></div>
+  </div>
+
+  <!-- Dynamic light sweep -->
+  <div class="light-sweep"></div>
+
+  <!-- HAPPY DIWALI Popup -->
+  <div class="diwali-popup" id="diwaliPopup" aria-hidden="true">
+    <div class="dp-wrap">
+      <h2 class="dp-title">HAPPY DIWALI</h2>
+      <div class="dp-sub">lights • love • prosperity</div>
+      <i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+
+  <!-- Reply Dialog -->
+  <div class="overlay" id="replyOverlay" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="replyTitle">
+      <button class="close-btn" id="replyClose" aria-label="Close">✕</button>
+      <h4 id="replyTitle">Plzz apne reply neeche diye link par dedo</h4>
+      <p>Neon link par tap/click karke directly reply de sakte ho.</p>
+      <a class="neon-link" href="https://www.instagram.com/epicenchanter__" target="_blank" rel="noopener noreferrer">Instagram: @epicenchanter__</a>
+    </div>
+  </div>
+
+  <div class="scene" id="scene">
+    <header>
+      <h1 class="title">Happy Diwali</h1>
+      <div class="to">
+        For dear <span class="hi-name">HoneyPIE</span> & <span class="hi-name">SHADOWSHOPI</span> with love
+      </div>
+    </header>
+
+    <div class="wrap">
+      <div class="grid">
+        <section class="panel">
+          <h3 style="margin:0 0 8px;color:#ffe8b0">Dil se Dua</h3>
+          <p class="msg">Iss Diwali ghar roshan rahe, sapnon par nayi roshni chamke, aur har din me mithaas ghule — hamesha muskuraate raho! 🕯️✨</p>
+          <div class="controls">
+            <button class="primary" id="lightBtn">Light the Candles</button>
+            <button id="replyBtn">Reply</button>
+          </div>
+          <small style="opacity:.8">Tip: Light pe tap karte hi scene me warmth aur glow badh jaayega.</small>
+        </section>
+
+        <section class="stage panel">
+          <div class="rangoli"></div>
+          <div class="candles" aria-label="Candles">
+            <div class="glow" id="glow"></div>
+
+            <div class="candle c2">
+              <div class="wick"></div>
+              <div class="flame" id="f2"></div>
+              <div class="drip"></div>
+              <div class="drip right"></div>
+              <div class="shine"></div>
+            </div>
+
+            <div class="candle c1">
+              <div class="wick"></div>
+              <div class="flame" id="f1"></div>
+              <div class="drip"></div>
+              <div class="drip right"></div>
+              <div class="shine"></div>
+            </div>
+
+            <div class="candle c3">
+              <div class="wick"></div>
+              <div class="flame" id="f3"></div>
+              <div class="drip"></div>
+              <div class="drip right"></div>
+              <div class="shine"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Footer with custom message -->
+    <footer class="footer-note">
+made by your lovingly brother
+<span class="hi-name">EpicEnchanter 🤙🏻🤙🏻</span>
+    </footer>
+  </div>
+
+  <canvas id="fw-canvas"></canvas>
+
+  <audio id="bgAudio" src="https://cdn.pixabay.com/download/audio/2023/04/14/audio_3a3f7d7b2f.mp3?filename=soft-bells-143005.mp3" preload="auto"></audio>
+
+  <!-- #made by @EpicEnchanter -->
+  <script>
+  // Lantern spawner
+  const lanterns = document.getElementById('lanterns');
+  function spawnLantern(){
+    const l = document.createElement('div');
+    l.className = 'lantern';
+    const x = Math.random()*100;
+    const dur = 14 + Math.random()*10;
+    const delay = Math.random()*2;
+    const drift = (Math.random()>.5?1:-1) * (30 + Math.random()*80);
+    l.style.left = x+'vw';
+    l.style.animationDuration = dur+'s';
+    l.style.animationDelay = delay+'s';
+    l.style.setProperty('--drift', drift+'px');
+    lanterns.appendChild(l);
+    setTimeout(()=> l.remove(), (dur+delay)*1000);
+  }
+  setInterval(spawnLantern, 800);
+  for(let i=0;i<10;i++) spawnLantern();
+
+  // Edge string bulbs
+  function makeBulbs(rowSel, count=34){
+    const row = document.querySelector(rowSel);
+    row.innerHTML = '';
+    for(let i=0;i<count;i++){
+      const b = document.createElement('div');
+      b.className = 'bulb';
+      const hue = 20 + Math.floor(Math.random()*300);
+      const col = `hsl(${hue} 90% 70%)`;
+      const delay = (Math.random()*1.6).toFixed(2)+'s';
+      b.style.setProperty('--c', col);
+      b.style.setProperty('--d', delay);
+      row.appendChild(b);
+    }
+  }
+  makeBulbs('.top', 34);
+  makeBulbs('.bottom', 34);
+
+  // Candle controls
+  const f1 = document.getElementById('f1');
+  const f2 = document.getElementById('f2');
+  const f3 = document.getElementById('f3');
+  const glow = document.getElementById('glow');
+  const bgAudio = document.getElementById('bgAudio');
+
+  let lit = false;
+  function setLit(state){
+    lit = state ?? !lit;
+    const to = lit ? 1 : 0;
+    [f1,f2,f3].forEach((f,i)=>{
+      f.style.opacity = to;
+      f.style.animationPlayState = to? 'running' : 'paused';
+    });
+    glow.style.opacity = to ? 1 : 0;
+
+    document.querySelector('.light-sweep').style.opacity = lit ? .25 : .18;
+
+    if(lit){
+      bgAudio.volume = 0.35;
+      bgAudio.currentTime = 0;
+      bgAudio.play().catch(()=>{});
+    }else{
+      bgAudio.pause();
+    }
+  }
+
+  // Fireworks system (mouse + touch)  /* #made by @EpicEnchanter */
+  const fw = document.getElementById('fw-canvas');
+  const ctx = fw.getContext('2d');
+  let W = fw.width = innerWidth;
+  let H = fw.height = innerHeight;
+
+  const DPR = Math.max(1, devicePixelRatio || 1);
+  function resize(){
+    W = fw.width = innerWidth * DPR;
+    H = fw.height = innerHeight * DPR;
+    fw.style.width = innerWidth + 'px';
+    fw.style.height = innerHeight + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  addEventListener('resize', resize, {passive:true});
+  resize();
+
+  const rockets = [];
+  const particles = [];
+  const gravity = 0.12;
+  const air = 0.992;
+
+  function rand(a,b){ return Math.random()*(b-a)+a; }
+  function launch(x, y){
+    const r = {
+      x, y,
+      vx: rand(-0.8, 0.8),
+      vy: rand(-9, -12),
+      life: rand(0.9, 1.2),
+      hue: Math.floor(rand(0,360)),
+      trail: []
+    };
+    rockets.push(r);
+  }
+  function explode(x, y, hue){
+    const count = 60;
+    for(let i=0;i<count;i++){
+      const ang = (Math.PI*2) * (i/count) + rand(-0.05,0.05);
+      const spd = rand(2.2, 5.2);
+      particles.push({
+        x, y,
+        vx: Math.cos(ang)*spd,
+        vy: Math.sin(ang)*spd,
+        alpha: 1,
+        size: rand(1.2,2.4),
+        col: `hsl(${(hue+rand(-20,20))%360} 95% 70% / 1)`,
+      });
+    }
+  }
+  function trailDraw(tr){
+    ctx.beginPath();
+    for(let i=0;i<tr.length-1;i++){
+      const p = tr[i], n = tr[i+1];
+      ctx.strokeStyle = `rgba(255,220,150,${0.15 + i*0.06})`;
+      ctx.lineWidth = 2 - i*0.15;
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(n.x, n.y);
+    }
+    ctx.stroke();
+  }
+
+  // Step loop (base)
+  function step(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+
+    // rockets
+    for(let i=rockets.length-1;i>=0;i--){
+      const r = rockets[i];
+      r.vy += gravity * 0.2;
+      r.x += r.vx; r.y += r.vy;
+      r.trail.unshift({x:r.x, y:r.y});
+      if(r.trail.length>10) r.trail.pop();
+
+      trailDraw(r.trail);
+      ctx.fillStyle = `hsl(${r.hue} 100% 85%)`;
+      ctx.shadowColor = 'rgba(255,200,120,.8)';
+      ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.arc(r.x, r.y, 2.2, 0, Math.PI*2); ctx.fill();
+      ctx.shadowBlur = 0;
+
+      r.life -= 0.02;
+      if(r.vy >= -2 || r.life <= 0 || r.y < innerHeight*0.18){
+        explode(r.x, r.y, r.hue);
+        rockets.splice(i,1);
+      }
+    }
+
+    // particles
+    for(let i=particles.length-1;i>=0;i--){
+      const p = particles[i];
+      p.vx *= air; p.vy = p.vy*air + gravity*0.25;
+      p.x += p.vx; p.y += p.vy;
+      ctx.fillStyle = p.col;
+      ctx.globalAlpha = 0.98;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+      p.size *= 0.992;
+      if(p.size < 0.2) particles.splice(i,1);
+    }
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(step);
+  }
+  step();
+
+  function getPoint(e){
+    if(e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    return { x: e.clientX, y: e.clientY };
+  }
+  function fire(e){
+    const p = getPoint(e);
+    launch(p.x, p.y);
+  }
+  addEventListener('mousedown', fire);
+  addEventListener('touchstart', fire, {passive:true});
+
+  // Auto demo
+  setTimeout(()=>{
+    for(let i=0;i<3;i++) launch(innerWidth*(0.3+0.4*Math.random()), innerHeight*0.9);
+  }, 1200);
+
+  // Safety caps
+  setInterval(()=>{
+    if(particles.length > 1200) particles.splice(0, particles.length - 900);
+    if(rockets.length > 12) rockets.splice(0, rockets.length - 8);
+  }, 1000);
+
+  // HAPPY DIWALI Popup + celebrate
+  const popup = document.getElementById('diwaliPopup');
+  function celebrateBurst(){
+    for(let i=0;i<5;i++){
+      setTimeout(()=> launch(innerWidth*(0.25+0.5*Math.random()), innerHeight*0.85), i*120);
+    }
+    for(let i=0;i<3;i++){
+      setTimeout(()=> launch(innerWidth*0.15, innerHeight*0.9), 200 + i*100);
+      setTimeout(()=> launch(innerWidth*0.85, innerHeight*0.9), 260 + i*100);
+    }
+    setTimeout(()=>{
+      for(let i=0;i<3;i++){
+        explode(innerWidth*(0.35+0.3*Math.random()), innerHeight*(0.22+0.1*Math.random()), Math.floor(Math.random()*360));
+      }
+    }, 600);
+  }
+  function showPopup(ms=4000){
+    popup.classList.add('show');
+    popup.setAttribute('aria-hidden','false');
+    setTimeout(()=>{
+      popup.classList.remove('show');
+      popup.setAttribute('aria-hidden','true');
+    }, ms);
+  }
+
+  // Light button handler: toggle + auto fireworks + popup
+  document.getElementById('lightBtn').addEventListener('click', ()=>{
+    const wasLit = lit;
+    setLit(!lit);
+    if(!wasLit && lit){
+      celebrateBurst();
+      showPopup(4200);
+    }
+  });
+
+  // Reply dialog logic
+  const replyBtn = document.getElementById('replyBtn');
+  const replyOverlay = document.getElementById('replyOverlay');
+  const replyClose = document.getElementById('replyClose');
+
+  replyBtn.addEventListener('click', ()=>{
+    replyOverlay.classList.add('show');
+    replyOverlay.setAttribute('aria-hidden','false');
+  });
+  replyClose.addEventListener('click', ()=>{
+    replyOverlay.classList.remove('show');
+    replyOverlay.setAttribute('aria-hidden','true');
+  });
+  // Close on backdrop click
+  replyOverlay.addEventListener('click', (e)=>{
+    if(e.target === replyOverlay){
+      replyOverlay.classList.remove('show');
+      replyOverlay.setAttribute('aria-hidden','true');
+    }
+  });
+
+  // #made by @EpicEnchanter
+  </script>
+</body>
+</html>
